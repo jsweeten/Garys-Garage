@@ -2,13 +2,8 @@ using System;
 
 namespace Garage
 {
-    public class Zero : Vehicle // Electric motorcycle
+    public class Zero : Vehicle, IElectricEngine
     {
-        public double BatteryKWh { get; set; }
-        public void ChargeBattery()
-        {
-            // method definition omitted
-        }
         public override void Drive()
         {
             Console.WriteLine($"{this} drives by 'WAHHHHHH'");
@@ -20,6 +15,13 @@ namespace Garage
         public override void Stop()
         {
             Console.WriteLine($"The {this} decelerates quickly");
+        }
+        public double BatteryKWh { get; set; } = 40.42;
+        public int CurrentChargePercentage { get; set; } = 56;
+        public void ChargeBattery()
+        {
+            CurrentChargePercentage = 100;
+            Console.WriteLine($"The battery on the Zero motorcycle is recharged to {BatteryKWh} Kwh");
         }
     }
 }
