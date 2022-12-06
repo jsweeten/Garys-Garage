@@ -1,50 +1,65 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Garage
 {
     class Program
     {
-        static void Main(string[] args) 
+        static void Main (string[] args)
         {
-            Zero fxs = new Zero()
-            {
-                MainColor = "Purple",
-                MaximumOccupancy = 2,
-                BatteryKWh = 20.25
+            Zero fxs = new Zero();
+            Zero fx = new Zero();
+            Tesla modelS = new Tesla();
+
+            List<IElectricEngine> electricVehicles = new List<IElectricEngine>() {
+                fx, fxs, modelS
             };
-            Tesla modelS = new Tesla()
+            Console.WriteLine("");
+            Console.WriteLine("Electric Vehicles");
+            Console.WriteLine("");
+            foreach(IElectricEngine ev in electricVehicles)
             {
-                MainColor = "Red",
-                MaximumOccupancy = 5,
-                BatteryKWh = 41.72
-            };
-            Cessna mx410 = new Cessna()
+                Console.WriteLine($"{ev.CurrentChargePercentage}");
+            }
+
+            foreach(var ev in electricVehicles)
             {
-                MainColor = "Green",
-                MaximumOccupancy = 7,
-                FuelCapacity = 150
-            };
-            Ram HD1500 = new Ram()
+                // This should charge the vehicle to 100%
+                ev.ChargeBattery();
+            }
+
+            foreach(var ev in electricVehicles)
             {
-                MainColor = "Blue",
-                MaximumOccupancy = 5,
-                FuelCapacity = 42
+                Console.WriteLine($"{ev.CurrentChargePercentage}");
+            }
+
+            /***********************************************/
+
+            Ram ram = new Ram ();
+            Cessna cessna150 = new Cessna ();
+
+            List<IGasEngine> gasVehicles = new List<IGasEngine>() {
+                ram, cessna150
             };
 
-            fxs.Drive();
-            modelS.Drive();
-            mx410.Drive();
-            HD1500.Drive();
-            Console.WriteLine();
-            fxs.Turn("left");
-            modelS.Turn("into some children");
-            mx410.Turn("up");
-            HD1500.Turn("down for what");
-            Console.WriteLine();
-            fxs.Stop();
-            modelS.Stop();
-            mx410.Stop();
-            HD1500.Stop();
+            Console.WriteLine("");
+            Console.WriteLine("Gas Vehicles");
+            Console.WriteLine("");
+            foreach(IGasEngine gv in gasVehicles)
+            {
+                Console.WriteLine($"{gv.CurrentTankPercentage}");
+            }
+
+            foreach(var gv in gasVehicles)
+            {
+                // This should completely refuel the gas tank
+                gv.RefuelTank();
+            }
+
+            foreach(var gv in gasVehicles)
+            {
+                Console.WriteLine($"{gv.CurrentTankPercentage}");
+            }
         }
     }
 }

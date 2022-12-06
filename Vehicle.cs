@@ -24,4 +24,17 @@ namespace Garage
             return MainColor + " " + GetType().Name;
         }
     }
+
+    public interface IElectricEngine
+    {
+        double BatteryKWh { get; set; }
+        int CurrentChargePercentage { get; set; }
+        void ChargeBattery();
+    }
+    public interface IGasEngine
+    {
+        double FuelCapacity { get; set; }
+        double CurrentTankPercentage { get; set; }
+        public void RefuelTank();
+    }
 }
